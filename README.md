@@ -27,15 +27,23 @@ Les paramètres médecin sont protégés par un mot de passe (cadenas en haut à
 - Modifiable une fois déverrouillé
 - La session reste ouverte jusqu’à fermeture de l’onglet (ou verrouillage manuel)
 
+## Catalogue aliments
+
+Onglet **Aliments** : données **CIQUAL 2025 (ANSES)** ([ciqual.anses.fr](https://ciqual.anses.fr/), DOI [10.57745/RDMHWY](https://doi.org/10.57745/RDMHWY), licence etalab 2.0).
+
+- Noyau ~60 aliments courants
+- Switch **Étendre** → ~230 aliments supplémentaires (~290 au total)
+- Pictogrammes, favoris ★, recherche sans accents
+
 ## Données locales
 
 Stockage IndexedDB (`calcul-insuline`) dans le navigateur :
 
 - `schema` — paramètres du schéma médical
 - `settings` — hash du mot de passe admin
-- `kv` — store libre pour évolutions (aliments, historique, etc.)
+- `foods` — catalogue CIQUAL + favoris
+- `kv` — store libre pour évolutions
 
-## Lancer
 
 ```bash
 npm install

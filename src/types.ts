@@ -21,6 +21,54 @@ export interface FoodEntry {
   id: string
   weight: string
   carbsPer100: string
+  catalogId?: string
+  name?: string
+  icon?: FoodIcon
+}
+
+export type FoodIcon =
+  | 'bread'
+  | 'pastry'
+  | 'cereal'
+  | 'rice'
+  | 'pasta'
+  | 'potato'
+  | 'fruit'
+  | 'veg'
+  | 'dairy'
+  | 'egg'
+  | 'meat'
+  | 'ham'
+  | 'poultry'
+  | 'fish'
+  | 'sweet'
+  | 'drink'
+  | 'meal'
+  | 'legume'
+
+export interface CatalogFood {
+  id: string
+  name: string
+  fullName: string
+  group: string
+  subgroup: string
+  carbsPer100: number
+  sugarsPer100: number | null
+  icon: FoodIcon
+  source: string
+  ciqualCode: string
+  favorite: boolean
+  /** Noyau courant ou extension (~250 aliments) */
+  tier: 'core' | 'extended'
+}
+
+export interface FoodCatalogFile {
+  source: string
+  sourceShort: string
+  sourceUrl: string
+  license: string
+  note: string
+  foods: CatalogFood[]
 }
 
 export interface SchemaConfig {

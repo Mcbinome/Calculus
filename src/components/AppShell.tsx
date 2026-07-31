@@ -21,6 +21,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             Calcul
           </Link>
           <Link
+            to="/aliments"
+            className={pathname === '/aliments' ? 'nav-link active' : 'nav-link'}
+          >
+            Aliments
+          </Link>
+          <Link
             to="/admin"
             className={pathname === '/admin' ? 'nav-link active' : 'nav-link'}
           >
