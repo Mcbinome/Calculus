@@ -72,6 +72,42 @@ a {
   margin-bottom: 1.25rem;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lock-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink-soft);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+
+.lock-btn:hover {
+  color: var(--accent);
+}
+
+.lock-btn:active {
+  transform: scale(0.96);
+}
+
+.lock-btn.active,
+.lock-btn.unlocked {
+  background: var(--accent);
+  color: #f2fffb;
+  border-color: transparent;
+}
+
 .topbar-brand {
   display: flex;
   align-items: center;
@@ -233,6 +269,14 @@ a {
 .input:focus {
   border-color: var(--accent-2);
   box-shadow: 0 0 0 3px rgba(26, 122, 111, 0.18);
+}
+
+.input:disabled,
+.input[readonly] {
+  opacity: 0.85;
+  color: var(--ink);
+  background: rgba(247, 252, 250, 0.55);
+  cursor: default;
 }
 
 .input-lg {
@@ -456,6 +500,130 @@ a {
   margin: 0;
   opacity: 0.8;
   line-height: 1.4;
+}
+
+.lock-panel {
+  text-align: center;
+}
+
+.lock-hero {
+  width: 3.6rem;
+  height: 3.6rem;
+  margin: 0 auto 0.85rem;
+  border-radius: 1rem;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  background: rgba(10, 79, 74, 0.1);
+}
+
+.unlock-form,
+.password-form {
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+  margin-top: 0.5rem;
+}
+
+.password-form {
+  margin-top: 0.85rem;
+}
+
+.auth-row {
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.auth-panel {
+  position: sticky;
+  bottom: 0.75rem;
+}
+
+.unlock-inline {
+  display: contents;
+}
+
+.unlock-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.65rem 0.8rem;
+  grid-column: 1;
+}
+
+.pwd-lock-btn {
+  width: 100%;
+  height: 2.7rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel-solid);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  grid-column: 2;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.pwd-lock-btn:hover:not(:disabled) {
+  border-color: var(--accent-2);
+  background: rgba(10, 79, 74, 0.08);
+}
+
+.pwd-lock-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.pwd-lock-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pwd-lock-btn.open {
+  background: linear-gradient(160deg, var(--accent-2), var(--accent));
+  color: #f2fffb;
+  border-color: transparent;
+}
+
+.auth-hint {
+  margin: 0;
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  min-height: 2.7rem;
+  padding: 0 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(10, 79, 74, 0.18);
+  background: rgba(10, 79, 74, 0.07);
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+
+.auth-error {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.form-error {
+  margin: 0 0 0.5rem;
+  color: var(--warn);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.form-ok {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 600;
 }
 
 .admin-form {

@@ -2,36 +2,54 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from 'react'
-import { loadSchema, resetSchema, saveSchema } from '../lib/storage'
+import { DEFAULT_SCHEMA } from '../data/defaults'
+import {
+  loadSchemaFromDb,
+  resetSchemaInDb,
+  saveSchemaToDb,
+} from '../db/database'
 import type { SchemaConfig } from '../types'
 
 interface SchemaContextValue {
+  ready: boolean
   schema: SchemaConfig
-  updateSchema: (next: SchemaConfig) => void
-  restoreDefaults: () => void
+  updateSchema: (next: SchemaConfig) => Promise<void>
+  restoreDefaults: () => Promise<void>
 }
 
 const SchemaContext = createContext<SchemaContextValue | null>(null)
 
 export function SchemaProvider({ children }: { children: ReactNode }) {
-  const [schema, setSchema] = useState<SchemaConfig>(() => loadSchema())
+  const [ready, setReady] = useState(false)
+  const [schema, setSchema] = useState<SchemaConfig>(() =>
+    structuredClone(DEFAULT_SCHEMA),
+  )
 
-  const updateSchema = useCallback((next: SchemaConfig) => {
-    saveSchema(next)
+  useEffect(() => {
+    void loadSchemaFromDb().then((loaded) => {
+      setSchema(loaded)
+      setReady(true)
+    })
+  }, [])
+
+  const updateSchema = useCallback(async (next: SchemaConfig) => {
+    await saveSchemaToDb(next)
     setSchema(next)
   }, [])
 
-  const restoreDefaults = useCallback(() => {
-    setSchema(resetSchema())
+  const restoreDefaults = useCallback(async () => {
+    const fresh = await resetSchemaInDb()
+    setSchema(fresh)
   }, [])
 
   const value = useMemo(
-    () => ({ schema, updateSchema, restoreDefaults }),
-    [schema, updateSchema, restoreDefaults],
+    () => ({ ready, schema, updateSchema, restoreDefaults }),
+    [ready, schema, updateSchema, restoreDefaults],
   )
 
   return <SchemaContext.Provider value={value}>{children}</SchemaContext.Provider>

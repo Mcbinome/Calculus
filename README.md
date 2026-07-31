@@ -19,11 +19,25 @@ Comme dans la feuille Excel :
 3. Insuline repas = glucides totaux × (rapport U/10 g) / 10
 4. Dose totale = compensation + insuline repas (arrondi au 0,5)
 
+## Sécurité paramètres
+
+Les paramètres médecin sont protégés par un mot de passe (cadenas en haut à droite).
+
+- Mot de passe par défaut : `Trombose2026`
+- Modifiable une fois déverrouillé
+- La session reste ouverte jusqu’à fermeture de l’onglet (ou verrouillage manuel)
+
+## Données locales
+
+Stockage IndexedDB (`calcul-insuline`) dans le navigateur :
+
+- `schema` — paramètres du schéma médical
+- `settings` — hash du mot de passe admin
+- `kv` — store libre pour évolutions (aliments, historique, etc.)
+
 ## Lancer
 
 ```bash
 npm install
 npm run dev
 ```
-
-Les paramètres sont enregistrés dans le navigateur (`localStorage`).
